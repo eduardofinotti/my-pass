@@ -46,7 +46,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    setTestDeviceIDAsync('EMULATOR');
+    // setTestDeviceIDAsync('EMULATOR');
 
     if(Platform.OS == 'ios'){
       setAdmob('ca-app-pub-7656347766469977/6721780271')
