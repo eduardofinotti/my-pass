@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity, Switch, Platform, TextInput, Keyboard } from 'react-native';
+import Storage from '@react-native-community/async-storage';
 
 import Header from './Header';
 import Clipboard from 'expo-clipboard';
@@ -12,7 +13,7 @@ import {
 } from 'expo-ads-admob';
 
 var logo = require('./assets/mp-logo.png');
-var copy_logo = require('./assets/copiar.png');
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function App() {
 
@@ -65,7 +66,29 @@ export default function App() {
       floating: true,
       style: {backgroundColor: '#999999'}
       });
+  }
+
+  async function favoritePassword() {
+
+    let existingProducts = await Storage.getItem('@passwords')
+
+    let newProduct = JSON.parse(existingProducts);
+   
+    if( !newProduct ){
+      newProduct = []
     }
+
+    newProduct.push( {item: password} )
+
+    await Storage.setItem('@passwords', JSON.stringify(newProduct) )
+      .then( ()=>{
+        console.log(`It was saved successfully`)
+      } )
+      .catch( ()=>{
+        console.log(`There was an error saving the product`)
+      } )
+
+  }
 
   async function generatePassword() {
 
@@ -131,10 +154,17 @@ export default function App() {
           <Text style={styles.generateButtonText}>gerar senha</Text> 
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.copyContent} onPress={copyToClipboard}>
-          <Image style={styles.copyLogo} source={copy_logo}></Image>
-          <Text style={styles.copy}>copiar</Text>
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity style={styles.copyContent} onPress={copyToClipboard}>
+            <MaterialCommunityIcons name="content-copy" color={'#a1a1a1'} size={20} />
+            <Text style={styles.copy}>copiar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.copyContent} onPress={favoritePassword}>
+            <MaterialCommunityIcons name="star" color={'#a1a1a1'} size={20} />
+            <Text style={styles.copy}>favoritar</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
 
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 20}}>
@@ -287,7 +317,8 @@ const styles = StyleSheet.create({
   copyContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
 
   copyLogo: {

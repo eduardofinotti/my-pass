@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "My Pass - Gerador de senhas",
-    "slug": "My-Pass-Gerador-De-Senhas",
-    "version": "1.0.0",
+    "slug": "My Pass - Gerador de senhas",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.finotti.mypass",
-      "buildNumber": "1.0.0",
+      "buildNumber": "2.0.0",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-7656347766469977~9347943616"
       }
@@ -33,7 +33,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.finotti.mypass",
-      "versionCode": 1
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
